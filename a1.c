@@ -21,24 +21,84 @@ int isLetter(char ch)
  * @brief   Reads a file to fill two arrays with letters.
  *
  * This function reads a given input file to populate two arrays with the letters
- * read from said file.
+ *      read from said file.
  *
  * @param   inputFileName   The file that is to be read.
  * @return  char *          Character arrays.
  *
  * @note    Exits the program with an error message if the file cannot be opened.
  */
-char *readFile(const char *inputFileName) {
+char *readFile(const char *inputFileName, char **string1, char **string2) {
+    // **string1 and **string2 are double pointers: pointers to pointers to char.
+    // they are used to store the addresses of the arrays we will dynamically allocate
+
     FILE *inputFile = fopen(inputFileName, "r");
     
     if (inputFile == NULL) {
 
-        perror(stderr, "Invalid input data. File empty or unfound.");
+        perror("Invalid input data. File empty or unfound.");
+
+        fclose(inputFile);
+
         exit(EXIT_FAILURE);
 
     }
-    
 
+    int ch;
+    int lineCount = 0;
+
+    // size_t is a datatype in C that is used to represent the 
+    // size of an array or container. 
+    // It is an unsigned-integer type that is platform dependent.
+    size_t size1 = 0;
+    size_t size2 = 0;
+
+    while ((ch = fgetc(inputFile)) != EOF) {
+
+        if (ch == "\n") {
+            lineCount++;
+
+            // ignore anything beyond the second line in the file.
+            if (lineCount > 1) {
+                break;
+            }
+
+        // checks the character to see if it is a letter.
+        } else if (isLetter(ch)) {
+
+            //for the first line in the file.
+            if (lineCount == 0) {
+
+                // resize allocated memory to account for the character we are
+                // trying to add.
+                *string1 = realloc(*string1, (size1 + 1) * sizeof(char));
+
+                if (*string1 == NULL) {
+                    perror("Error reallocating memory");
+                    exit(EXIT_FAILURE);
+                }
+
+                // assigning the character ch to the space at the current index
+                // in the character array pointed to by string1.
+                (*string1)[size1] = (char)ch;
+                size1++;
+            }
+
+        } else {
+
+            *string2 = realloc(*string2, (size2 + 1) * sizeof(char));
+
+            if (*string2 == NULL) {
+                perror("Error reallocating memory");
+                exit(EXIT_FAILURE);
+            }
+
+            (*string2)[size2] = (char)ch;
+            size2++;
+
+        }
+    }
+    
     fclose(inputFile);
     
 }
@@ -63,14 +123,14 @@ char *readFile(const char *inputFileName) {
  */
 int isAnagram(char string1[], char string2[]) {
 
-    // PSEUDO CODE FOR BASIC IDEA
+    // PSEUDO CODE FOR BASIC IDEA OF FUNCTION
 
     // if (string1.length == string2.length) {
     //     for (int i = 0; i < string1.length; i++) {
     //         if (string1[i] is in string2[]) {
     //             continue;
     //         } else {
-    //             return;
+    //             return 1;
     //         }
     //     }
     // } else {
@@ -85,8 +145,8 @@ int isAnagram(char string1[], char string2[]) {
  * @brief   Prints a message to the output file.
  *
  * This function acts as the "quarterback" of the program, calling on the
- * isAnagram() method and retrieving its response and printing a message
- * depending on whether the two strings are anagrams.
+ *      isAnagram() method and retrieving its response and printing a message
+ *      depending on whether the two strings are anagrams.
  *
  * @param   string1[]    The first string.
  * @param   string2[]    The second string.
@@ -97,7 +157,7 @@ int isAnagram(char string1[], char string2[]) {
  */
 void printMsg(char string1[], char string2[], const char *inputFile, const char *outputFile) {
 
-    readFile(inputFile);
+    // readFile(inputFile);
 
     if (isAnagram(string1, string2)) {
         fprintf("1! anagram", outputFile);
@@ -112,18 +172,24 @@ void printMsg(char string1[], char string2[], const char *inputFile, const char 
  *
  * @param   none
  * @return  int   0 if there are no errors in execution,
- *                      1 otherwise
+ *                      1 otherwise.
  */
 int main()
 {
     const char *inputFile = "input.txt";
     const char *outputFile = "output.txt";
 
-    char string1[1000]; //just to avoid errors during production
-    char string2[1000]; //just to avoid errors during production
+    // using char * rather than a fixed array allows for dynamic
+    // memory allocation rather than fixed.
+    char *string1 = NULL;
+    char *string2 = NULL;
 
-    printMsg(string1, string2, inputFile, outputFile);
+    printMsg(&string1, &string2, inputFile, outputFile);
 
+    // "free" the meory allocated to our character arrays.
+    free(string1);
+    free(string2);
+    
     return 0;
 
 }
