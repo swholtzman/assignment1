@@ -99,8 +99,6 @@ char *readFile(const char *inputFileName, char **string1, char **string2) {
         }
     }
     
-    fclose(inputFile);
-    
 }
 
 
@@ -160,10 +158,13 @@ void printMsg(char string1[], char string2[], const char *inputFile, const char 
     // readFile(inputFile);
 
     if (isAnagram(string1, string2)) {
-        fprintf("1! anagram", outputFile);
+        fprintf(outputFile, "1! anagram");
     } else {
-        fprintf("0! not anagram", outputFile);
+        fprintf(outputFile, "0! not anagram");
     }
+
+    fclose(inputFile);
+    fclose(outputFile);
 }
 
 
