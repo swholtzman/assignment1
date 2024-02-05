@@ -22,7 +22,8 @@ From here, use the following terminal inputs to properly execute the code:
 * *make check* 
 
 **Check Output:** The result (whether the strings are anagrams or not) will be written to the output file (output.txt).
-Functions
+
+## Functions
 
 ##### isLetter(char ch)
 Determines if a character is a letter. Returns 1 if it is, 0 otherwise.
