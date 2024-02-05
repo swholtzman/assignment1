@@ -55,7 +55,7 @@ void readFile(const char *inputFileName, char **string1, char **string2)
     if (inputFile == NULL)
     {
 
-        perror("Invalid input data. File empty or unfound.");
+        perror("Error");
 
         fclose(inputFile);
 
@@ -93,7 +93,7 @@ void readFile(const char *inputFileName, char **string1, char **string2)
 
                 if (*string1 == NULL)
                 {
-                    perror("Error found while allocating memory");
+                    perror("Error");
                     exit(EXIT_FAILURE);
                 }
 
@@ -110,7 +110,7 @@ void readFile(const char *inputFileName, char **string1, char **string2)
 
                 if (*string2 == NULL)
                 {
-                    perror("Error found while allocating memory");
+                    perror("Error");
                     exit(EXIT_FAILURE);
                 }
 
@@ -127,16 +127,16 @@ void readFile(const char *inputFileName, char **string1, char **string2)
     // make sure theres something in each array
     if (*string1 == NULL || *string2 == NULL)
     {
-        perror("Error found while allocating memory");
+        perror("Error");
         exit(EXIT_FAILURE);
     }
 
     // add a NULL-terminator to the end of each character array
     (*string1)[size1] = '\0';
-    printf("string1: %s\n", *string1);
+    // printf("string1: %s\n", *string1);
 
     (*string2)[size2] = '\0';
-    printf("string2: %s\n", *string2);
+    // printf("string2: %s\n", *string2);
 
     fclose(inputFile);
 }
@@ -245,7 +245,7 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
     // error handling for invalid output file
     if (outputFile == NULL)
     {
-        perror("Error opening output file");
+        perror("Error");
         exit(EXIT_FAILURE);
     }
 
@@ -255,6 +255,7 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
     {
         fprintf(outputFile, "1! anagram");
     }
+    
     else
     {
         fprintf(outputFile, "0! not anagram");
@@ -263,6 +264,8 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
     // close file locally where they were opened
     fclose(outputFile);
 }
+
+
 
 /**
  * @brief  The main entry point of the program.
