@@ -14,12 +14,12 @@ gcc anagram_checker.c -o anagram_checker
 ./anagram_checker
 
 From here, use the following terminal inputs to properly execute the code:
- - *make clean* 
- - *make convert_input* 
- - *make run* 
- - *make convert_output*
- - *make clean*
- - *make check* 
+* *make clean* 
+* *make convert_input* 
+* *make run* 
+* *make convert_output*
+* *make clean*
+* *make check* 
 
 **Check Output:** The result (whether the strings are anagrams or not) will be written to the output file (output.txt).
 Functions
