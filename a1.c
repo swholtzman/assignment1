@@ -3,6 +3,14 @@
 #include <ctype.h>
 
 /**
+ * Student Numbers for Assignment Participants:
+ * Sam Holtzman - A01308106
+ * Isaac Lauzon - A
+ * Aathavan Sriharan - A
+ * Ranveer Rai - A
+*/
+
+/**
  * @brief   Determines if parameter is a char.
  *
  * This function checks a given input character to see if it is a letter.
@@ -78,8 +86,9 @@ void readFile(const char *inputFileName, char **string1, char **string2)
         {
             lineCount++;
 
-            // checks the character to see if it is a letter.
+            
         }
+        // checks the character to see if it is a letter.
         else if (isLetter(ch))
         {
 
@@ -255,7 +264,7 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
     {
         fprintf(outputFile, "1! anagram");
     }
-    
+
     else
     {
         fprintf(outputFile, "0! not anagram");
@@ -264,8 +273,6 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
     // close file locally where they were opened
     fclose(outputFile);
 }
-
-
 
 /**
  * @brief  The main entry point of the program.
