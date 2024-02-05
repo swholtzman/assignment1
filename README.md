@@ -14,32 +14,32 @@ gcc anagram_checker.c -o anagram_checker
 ./anagram_checker
 
 From here, use the following terminal inputs to properly execute the code:
- *make clean* 
- *make convert_input* 
- *make run* 
- *make convert_output*
- *make clean*
- *make check* 
+ - *make clean* 
+ - *make convert_input* 
+ - *make run* 
+ - *make convert_output*
+ - *make clean*
+ - *make check* 
 
 **Check Output:** The result (whether the strings are anagrams or not) will be written to the output file (output.txt).
 Functions
 
-###### isLetter(char ch)
+##### isLetter(char ch)
 Determines if a character is a letter. Returns 1 if it is, 0 otherwise.
 
-###### getLength(char str[])**
+##### getLength(char str[])**
 Returns the length of a character array.
 
-###### readFile(const char *inputFileName, char **string1, char **string2)
+##### readFile(const char *inputFileName, char **string1, char **string2)
 Reads a file and populates two arrays with letters. Exits with an error message if the file cannot be opened.
 
-###### isAnagram(char *string1, char *string2)
+##### isAnagram(char *string1, char *string2)
 Checks if two strings are anagrams of each other. Anagrams are defined as strings with the same length and the same set of characters (ignoring order).
 
-###### printMsg(char string1[], char string2[], const char *inputFileName, const char *outputFileName)
+##### printMsg(char string1[], char string2[], const char *inputFileName, const char *outputFileName)
 Prints a message to the output file, indicating whether the two strings are anagrams or not.
 
-###### main()
+##### main()
 The main entry point of the program. Reads input, checks for anagrams, and outputs the result.
 
 ## Important Notes
