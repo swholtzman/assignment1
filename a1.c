@@ -5,7 +5,7 @@
 /**
  * Student Numbers for Assignment Participants:
  * Sam Holtzman - A01308106
- * Isaac Lauzon - A
+ * Isaac Lauzon - A01370610
  * Aathavan Sriharan - A
  * Ranveer Rai - A
 */
