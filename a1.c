@@ -45,7 +45,7 @@ size_t getLength(char str[])
  *
  * @note    Exits the program with an error message if the file cannot be opened.
  */
-char *readFile(const char *inputFileName, char **string1, char **string2)
+void readFile(const char *inputFileName, char **string1, char **string2)
 {
     // **string1 and **string2 are double pointers: pointers to pointers to char.
     // they are used to store the addresses of the arrays we will dynamically allocate
@@ -78,12 +78,6 @@ char *readFile(const char *inputFileName, char **string1, char **string2)
         {
             lineCount++;
 
-            // ignore anything beyond the second line in the file.
-            if (lineCount > 1)
-            {
-                break;
-            }
-
             // checks the character to see if it is a letter.
         }
         else if (isLetter(ch))
@@ -108,20 +102,21 @@ char *readFile(const char *inputFileName, char **string1, char **string2)
                 (*string1)[size1] = (char)ch;
                 size1++;
             }
-        }
-        else
-        {
 
-            *string2 = realloc(*string2, (size2 + 1) * sizeof(char));
-
-            if (*string2 == NULL)
+            else if (lineCount == 1)
             {
-                perror("Error found while allocating memory");
-                exit(EXIT_FAILURE);
-            }
 
-            (*string2)[size2] = (char)ch;
-            size2++;
+                *string2 = realloc(*string2, (size2 + 1) * sizeof(char));
+
+                if (*string2 == NULL)
+                {
+                    perror("Error found while allocating memory");
+                    exit(EXIT_FAILURE);
+                }
+
+                (*string2)[size2] = (char)ch;
+                size2++;
+            }
         }
     }
 
@@ -138,7 +133,10 @@ char *readFile(const char *inputFileName, char **string1, char **string2)
 
     // add a NULL-terminator to the end of each character array
     (*string1)[size1] = '\0';
+    printf("string1: %s\n", *string1);
+
     (*string2)[size2] = '\0';
+    printf("string2: %s\n", *string2);
 
     fclose(inputFile);
 }
@@ -160,14 +158,14 @@ char *readFile(const char *inputFileName, char **string1, char **string2)
  * @warning The function behavior is undefined if either or both input strings
  *              are empty.
  */
-int isAnagram(char **string1, char **string2)
+int isAnagram(char *string1, char *string2)
 {
 
     int letterCount[26] = {0};
 
     // get the length of each character array
-    size_t length1 = getLength(*string1);
-    size_t length2 = getLength(*string2);
+    size_t length1 = getLength(string1);
+    size_t length2 = getLength(string2);
 
     // ensure they are the same length, meaning they have the same number of characters
     // if one has a different number of characters, it cannot be an anagram
@@ -175,7 +173,7 @@ int isAnagram(char **string1, char **string2)
     {
 
         // count occurences of each letter in the string1 character array
-        for (int i = 0; (*string1)[i] != '\0'; ++i)
+        for (int i = 0; i < length1; ++i)
         {
             // make the character lowercase for easier comparison
             char ch = tolower(string1[i]);
@@ -190,7 +188,7 @@ int isAnagram(char **string1, char **string2)
             }
         }
 
-        for (int i = 0; (*string2)[i] != '\0'; ++i)
+        for (int i = 0; i < length1; ++i)
         {
             char ch = tolower(string2[i]);
 
@@ -206,18 +204,18 @@ int isAnagram(char **string1, char **string2)
 
         // if letterCount comes out as a 0 value, that means both strings contained
         // the same amount of identical characters and are anagrams.
-        for (int i = 0; i < 26; ++i) {
-            
+        for (int i = 0; i < 26; ++i)
+        {
+
             if (letterCount[i] != 0)
             {
-                // not an aanagram 
+                // not an aanagram
                 return 0;
             }
         }
 
         // an anagram
         return 1;
-        
     }
 
     // different lengths, not an anagram
@@ -242,7 +240,7 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
 {
 
     // open necessary file for program usage
-    FILE *outputFile = fopen(outputFile, "w");
+    FILE *outputFile = fopen(outputFileName, "w");
 
     // error handling for invalid output file
     if (outputFile == NULL)
@@ -284,7 +282,7 @@ int main()
     char *string2 = NULL;
 
     readFile(inputFile, &string1, &string2);
-    printMsg(&string1, &string2, inputFile, outputFile);
+    printMsg(string1, string2, inputFile, outputFile);
 
     // "free" the meory allocated to our character arrays.
     free(string1);
