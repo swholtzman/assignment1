@@ -7,8 +7,10 @@
  * Sam Holtzman - A01308106
  * Isaac Lauzon - A01370610
  * Aathavan Sriharan - A01233799
- * Ranveer Rai - A
+ * Ranveer Rai - A01278014
 */
+
+
 
 /**
  * @brief   Determines if parameter is a char.
@@ -22,6 +24,8 @@ int isLetter(char ch)
 {
     return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'));
 }
+
+
 
 /**
  * @brief   Gets the size of a character array.
@@ -41,6 +45,8 @@ size_t getLength(char str[])
 
     return lengthStr;
 }
+
+
 
 /**
  * @brief   Reads a file to fill two arrays with letters.
