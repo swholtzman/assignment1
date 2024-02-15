@@ -148,10 +148,10 @@ void readFile(const char *inputFileName, char **string1, char **string2)
 
     // add a NULL-terminator to the end of each character array
     (*string1)[size1] = '\0';
-    // printf("string1: %s\n", *string1);
+    printf("string1: %s\n", *string1);
 
     (*string2)[size2] = '\0';
-    // printf("string2: %s\n", *string2);
+    printf("string2: %s\n", *string2);
 
     fclose(inputFile);
 }
@@ -287,10 +287,13 @@ void printMsg(char string1[], char string2[], const char *inputFileName, const c
  * @return  int   0 if there are no errors in execution,
  *                      1 otherwise.
  */
-int main()
+int main(int argc, char *argv[])
 {
-    const char *inputFile = "input.txt";
-    const char *outputFile = "output.txt";
+    // const char *inputFile = "input.txt";
+    // const char *outputFile = "output.txt";
+
+    const char *inputFile = argv[1];
+    const char *outputFile = argv[2];
 
     // using char * rather than a fixed array allows for dynamic
     // memory allocation rather than fixed.
