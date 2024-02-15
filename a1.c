@@ -148,10 +148,10 @@ void readFile(const char *inputFileName, char **string1, char **string2)
 
     // add a NULL-terminator to the end of each character array
     (*string1)[size1] = '\0';
-    printf("string1: %s\n", *string1);
+    // printf("string1: %s\n", *string1);
 
     (*string2)[size2] = '\0';
-    printf("string2: %s\n", *string2);
+    // printf("string2: %s\n", *string2);
 
     fclose(inputFile);
 }
